@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager_GO: {fileID: 7405966164643243631, guid: 78a5909f4d0fc984c839d4dce5e44cf4,
     type: 3}
-  zombie: {fileID: 0}
-  dish: {fileID: 0}
+  music: {fileID: 5142782076427717462, guid: be7581c727336f64caf5955666d0c2f7, type: 3}
+  soundfx: {fileID: 6003867767096637187, guid: 2f283d56afd5a61428b00243f7f383b8, type: 3}
