@@ -44,3 +44,12 @@ TagManager:
   - name: Background
     uniqueID: 756696367
     locked: 0
+  - name: Player
+    uniqueID: 2374808369
+    locked: 0
+  - name: Tables
+    uniqueID: 2081277419
+    locked: 0
+  - name: Foreground
+    uniqueID: 693477915
+    locked: 0
