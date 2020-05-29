@@ -14,7 +14,11 @@ namespace Team2Game1 {
         public static GameData_SO gameData_SO;
         public static AudioClips_SO audioClip_SO;
         public static GlobalPrefabs_SO globalPrefabs_SO;
-        
+
+        //Audio Prefabs
+        public static Music music;
+        public static SoundFX soundFX;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]       
         private static void Initialize() {
             if (inited) { return; }
@@ -26,6 +30,10 @@ namespace Team2Game1 {
 
             //Instantiate Required prefabs
             Instantiate(globalPrefabs_SO.inputManager_GO);
+
+            //Instantiate music and soundFX prefabs. Set static reference to attached script.
+            music = Instantiate(globalPrefabs_SO.music).GetComponent<Music>();
+            soundFX = Instantiate(globalPrefabs_SO.soundfx).GetComponent<SoundFX>();
 
             inited = true;
         }

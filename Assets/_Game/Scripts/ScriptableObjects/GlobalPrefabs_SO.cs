@@ -8,8 +8,8 @@ namespace Team2Game1 {
     public class GlobalPrefabs_SO : ScriptableObject {
 
         public GameObject inputManager_GO;
-        public GameObject zombie;
-        public GameObject dish;
+        public GameObject music;
+        public GameObject soundfx;
 
     }
 }
