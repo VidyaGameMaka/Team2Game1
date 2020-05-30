@@ -11,7 +11,9 @@ public class Player : MonoBehaviour
     public Transform hand;
     public Selectable holding;
     public Selectable selected;
-    
+
+    public Animator anim;
+
     private List<Vector2> path = new List<Vector2>();
 
     #region MonoBehavior
