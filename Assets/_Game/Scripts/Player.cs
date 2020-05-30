@@ -4,51 +4,40 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public Node currentNode;
-    public float speed = 1;
     public float stepSize = 0.01f;
     
-    // Start is called before the first frame update
-    //void Start()
-    //{
-    //    Node n = AStar.Instance.FindShortestPath(start.position, end.position);
-
-    //    //while (n != null)
-    //    //{
-    //    //    var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-    //    //    obj.transform.position = n.Position;
-    //    //    n = n.Parent;
-    //    //}
-
-    //}
+    private List<Vector2> path = new List<Vector2>();
     
     public void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (/*path.Count == 0 && */Input.GetButtonDown("Fire1"))
         {
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            currentNode = AStar.Instance.FindShortestPath(transform.position, worldPosition);
+            path = AStar.Instance.FindShortestPath(transform.position, worldPosition);
         }
     }
 
     private void FixedUpdate()
     {
-        if (currentNode != null)
+        if (path.Count > 0)
         {
-            //Vector2 direction = currentNode.Position - (Vector2)transform.position;
-            //rb.velocity = direction * speed;
+            Vector2 target = path[0];
+            transform.position = Vector2.MoveTowards(transform.position, target, stepSize);
 
-            transform.position = Vector2.MoveTowards(transform.position, currentNode.Position, stepSize);
-            if ((Vector2)transform.position == currentNode.Position)
+            if ((Vector2)transform.position == target)
             {
-                currentNode = currentNode.Parent;
+                path.RemoveAt(0);
+
+                if (path.Count == 0)
+                {
+                    OnDestinationReached();
+                }
             }
         }
     }
 
-    public void SetPath(Vector3 destination)
+    private void OnDestinationReached()
     {
-        currentNode = AStar.Instance.FindShortestPath(transform.position, destination);
+
     }
 }

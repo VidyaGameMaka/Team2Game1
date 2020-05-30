@@ -12,20 +12,10 @@ public class AStar : MonoBehaviour
     public float nodeDistance = 1;
     public Transform firstNode;
     public Transform lastNode;
-    //public Transform testStart;
-    //public Transform testGoal;
-    //public Transform testParentBlocker;
 
-    public List<Transform> blockers;
-    //=> testParentBlocker.GetComponentsInChildren<Transform>().Where(x => x != testParentBlocker).ToList();
-
-    private PathBlocker[] pathBlockers;
-
-    //public Material pathMat;
-    //public Material blockMat;
-
+    private PathBlocker[] blockers;
     private Dictionary<Vector2, Node> nodes;
-    
+
     //private class Node
     //{
     //    public bool IsWalkable { get; set; }
@@ -76,51 +66,10 @@ public class AStar : MonoBehaviour
     private void Start()
     {
         Instance = this;
-        pathBlockers = FindObjectsOfType<PathBlocker>();
+        blockers = FindObjectsOfType<PathBlocker>();
 
         InitializeNodes(firstNode.position, lastNode.position);
-
-
-
-        //old test code vvv
-
-        //Node current = FindShortestPath(testStart.position, testGoal.position);
-
-        //VisualizeNodes();
-        //VisualizeParents();
-
-        //while (current != null)
-        //{
-        //    current.gameObject.GetComponent<Renderer>().material = pathMat;
-        //    current = current.Parent;
-        //}
     }
-
-    //private void VisualizeNodes()
-    //{
-    //    //foreach (var n in nodes)
-    //    //{
-    //    //    var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-    //    //    cube.transform.parent = transform;
-    //    //    cube.transform.localScale = Vector3.one * 0.9f;
-    //    //    cube.transform.position = n.Key;
-
-    //    //    if (!n.Value.IsWalkable)
-    //    //        cube.GetComponent<Renderer>().material = blockMat;
-            
-    //    //    n.Value.Obj = cube;
-    //    //}
-    //}
-
-    //private void VisualizeParents()
-    //{
-    //    foreach (var node in nodes)
-    //    {
-    //        Node n = node.Value;
-    //        if (n.Parent != null)
-    //            Debug.DrawRay((Vector3)n.Position + Vector3.back, (Vector3)(n.Parent.Position - n.Position).normalized * 0.5f + Vector3.back, Color.black, 60);
-    //    }
-    //}
 
     /// <summary>
     /// Builds a grid of nodes
@@ -138,16 +87,8 @@ public class AStar : MonoBehaviour
             for (float y = bottom; y <= top; y += nodeDistance)
             {
                 Vector2 position = new Vector2(x, y);
-                bool walkable = !pathBlockers.Any(b => b.boxCollider.OverlapPoint(position));
-
-                //var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                //cube.transform.parent = transform;
-                //cube.transform.localScale = Vector3.one * 0.9f;
-                //cube.transform.position = position;
-
-                //if (!walkable)
-                //    cube.GetComponent<Renderer>().material = blockMat;
-
+                bool walkable = !blockers.Any(b => b.boxCollider.OverlapPoint(position));
+                
                 Node n = new Node();
                 n.Position = position;
                 n.IsWalkable = walkable;
@@ -214,9 +155,22 @@ public class AStar : MonoBehaviour
         return null;
     }
 
-    private Vector2 Round(Vector2 position)
+    private Node GetClosestNode(Vector2 position)
     {
-        return new Vector2(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+        Node closest = null;
+        float minDistance = float.MaxValue;
+
+        foreach (var n in nodes.Where(x => x.Value.IsWalkable))
+        {
+            float distance = Vector2.Distance(position, n.Key);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closest = n.Value;
+            }
+        }
+
+        return closest;
     }
 
     /*
@@ -243,11 +197,16 @@ public class AStar : MonoBehaviour
      *          parent to current
      *          calculate G from current
      */
-
-    public Node FindShortestPath(Vector2 start, Vector2 destination)
+    public List<Vector2> FindShortestPath(Vector2 startPos, Vector2 endPos)
     {
-        start = Round(start);
-        destination = Round(start);
+        Node startNode = GetClosestNode(startPos);
+        Node endNode = GetClosestNode(endPos);
+
+        if (startNode == null || endNode == null || startNode.Position == endNode.Position)
+            return new List<Vector2>();
+
+        startPos = startNode.Position;
+        endPos = endNode.Position;
 
         //Initialize
         ClearPathData();
@@ -256,10 +215,10 @@ public class AStar : MonoBehaviour
         var closedList = new Dictionary<Vector2, Node>();
 
         //1.   Calculate heuristic values of all nodes
-        ComputeHueristics(destination);
+        ComputeHueristics(endPos);
 
         //2.   Put starting node on open list
-        openList.Add(start, nodes[start]);
+        openList.Add(startPos, nodes[startPos]);
 
         while (openList.Count > 0)
         {
@@ -272,12 +231,22 @@ public class AStar : MonoBehaviour
 
             //5.    Check if next to goal node
             var neighbors = current.GetNeighbors().Where(x => !closedList.ContainsKey(x.Position)).ToList();
-            var goal = nodes[destination];
+            var goal = nodes[endPos];
 
             if (neighbors.Contains(goal))
             {
                 goal.Parent = current;
-                return goal;
+                Node n = goal;
+                List<Vector2> path = new List<Vector2>();
+
+                while (n != null)
+                {
+                    path.Add(n.Position);
+                    n = n.Parent;
+                }
+
+                path.Reverse();
+                return path;
             }
 
             //6.   Calculate movement costs of surrounding nodes (excluding closed list nodes)
@@ -304,9 +273,8 @@ public class AStar : MonoBehaviour
                 }
             }
         }
-
-        Debug.LogError("Failed to find valid path");
-        return null;
+        
+        return new List<Vector2>();
     }
 
     private void ClearPathData()
