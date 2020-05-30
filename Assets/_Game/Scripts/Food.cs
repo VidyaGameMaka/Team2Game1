@@ -1,9 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Food : Selectable
 {
+    public BoxCollider2D boxCollider;
+    public SpriteRenderer spriteRenderer;
+    public Sprite emptyPlate;
+    public bool isEaten = false;
+
     public override void OnSelect()
     {
         Player.Instance.Select(this);
@@ -15,7 +21,13 @@ public class Food : Selectable
         bool success = Player.Instance.TryPickUp(this);
         if (success)
         {
-            GetComponent<BoxCollider2D>().enabled = false;
+            boxCollider.enabled = false;
         }
+    }
+
+    public void OnEaten()
+    {
+        spriteRenderer.sprite = emptyPlate;
+        isEaten = true;
     }
 }

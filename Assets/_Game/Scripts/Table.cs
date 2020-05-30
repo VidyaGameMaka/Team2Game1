@@ -13,28 +13,20 @@ public class Table : Selectable
         Eating,
         Dirty
     }
-
-    private State currentState;
-    public State CurrentState
-    {
-        get => currentState;
-        set
-        {
-            currentState = value;
-            OnStateChanged();
-        }
-    }
+    
+    public State currentState;
 
     public Transform platePosition;
     public Transform zombiePosition;
     
     private Zombie zombie;
+    private Food food;
 
     public override void OnSelect()
     {
         var selected = Player.Instance.selected;
 
-        switch (CurrentState)
+        switch (currentState)
         {
             case State.Available:
                 if (selected is Zombie)
@@ -43,7 +35,7 @@ public class Table : Selectable
                     Player.Instance.selected = null;
                     zombie = selected as Zombie;
                     zombie.Seat(this);
-                    StartCoroutine(ChangeState(State.Ordering, 2));
+                    StartCoroutine(OrderFood());
                 }
                 break;
             case State.ReadyToOrder:
@@ -59,51 +51,50 @@ public class Table : Selectable
     {
         var holding = Player.Instance.holding;
 
-        switch (CurrentState)
+        switch (currentState)
         {
             case State.ReadyToOrder:
                 //TODO: take order
-                CurrentState = State.WaitingOnFood;
+                zombie.spriteRenderer.sprite = zombie.seated;
+                currentState = State.WaitingOnFood;
                 break;
             case State.WaitingOnFood:
-                if (holding is Food)
+                Food f = holding as Food;
+                if (f != null && !f.isEaten)
                 {
+                    food = holding as Food;
                     Player.Instance.holding = null;
-                    holding.transform.SetParent(platePosition);
-                    holding.transform.localPosition = Vector3.zero;
-                    CurrentState = State.Eating;
+                    holding.transform.SetParent(null);
+                    holding.transform.position = platePosition.position;
+                    StartCoroutine(Eat());
                 }
                 break;
             case State.Dirty:
                 //TODO: clean table
-                CurrentState = State.Available;
+                food.OnInteract();
+                food = null;
+                currentState = State.Available;
                 break;
             default:
                 break;
         }
     }
 
-    private IEnumerator ChangeState(State state, float seconds)
+    private IEnumerator OrderFood()
     {
-        yield return new WaitForSeconds(seconds);
-        CurrentState = state;
+        currentState = State.Ordering;
+        yield return new WaitForSeconds(2);
+        currentState = State.ReadyToOrder;
+        zombie.spriteRenderer.sprite = zombie.raisedHand;
     }
 
-    private void OnStateChanged()
+    private IEnumerator Eat()
     {
-        switch (CurrentState)
-        {
-            case State.ReadyToOrder:
-                //raise hand
-                break;
-            case State.WaitingOnFood:
-                //lower hand
-                break;
-            case State.Dirty:
-                //spawn trash
-                break;
-            default:
-                break;
-        }
+        currentState = State.Eating;
+        yield return new WaitForSeconds(2);
+        currentState = State.Dirty;
+        food.OnEaten();
+        Destroy(zombie.gameObject);
+        zombie = null;
     }
 }

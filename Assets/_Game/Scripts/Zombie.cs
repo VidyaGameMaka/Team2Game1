@@ -5,6 +5,9 @@ using UnityEngine;
 public class Zombie : Selectable
 {
     public Table table;
+    public SpriteRenderer spriteRenderer;
+    public Sprite seated;
+    public Sprite raisedHand;
 
     public override void OnSelect()
     {
@@ -20,11 +23,6 @@ public class Zombie : Selectable
     public void Seat(Table table)
     {
         this.table = table;
-
-    }
-
-    public void OnStateChanged()
-    {
-
+        spriteRenderer.sprite = seated;
     }
 }

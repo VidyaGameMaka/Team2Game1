@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class TrashCan : Selectable
 {
-    public override void OnInteract()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override void OnSelect()
     {
-        throw new System.NotImplementedException();
+        Player.Instance.Select(this);
+        Player.Instance.MoveTo(transform.position);
+    }
+
+    public override void OnInteract()
+    {
+        Food food = Player.Instance.holding as Food;
+        if (food != null && food.isEaten)
+        {
+            Destroy(food.gameObject);
+        }
     }
 }
