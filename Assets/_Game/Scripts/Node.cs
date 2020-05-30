@@ -5,21 +5,21 @@ using UnityEngine;
 
 public class Node
 {
-    public bool IsWalkable ; //{ get; set; }
-    public float G ; //{ get; set; }
-    public float H ; //{ get; set; }
+    public bool IsWalkable { get; set; }
+    public float G { get; set; }
+    public float H { get; set; }
     public float F => G + H;
-    public float Weight ; //{ get; set; } = 1;
-    public Node Parent ; //{ get; set; }
-    public Node N ; //{ get; set; }
-    public Node S ; //{ get; set; }
-    public Node E ; //{ get; set; }
-    public Node W ; //{ get; set; }
-    public Node NE ; //{ get; set; }
-    public Node NW ; //{ get; set; }
-    public Node SE ; //{ get; set; }
-    public Node SW ; //{ get; set; }
-    public Vector2 Position ; //{ get; set; }
+    public float Weight { get; set; } = 1;
+    public Node Parent { get; set; }
+    public Node N { get; set; }
+    public Node S { get; set; }
+    public Node E { get; set; }
+    public Node W { get; set; }
+    public Node NE { get; set; }
+    public Node NW { get; set; }
+    public Node SE { get; set; }
+    public Node SW { get; set; }
+    public Vector2 Position { get; set; }
 
     public float f;
 
