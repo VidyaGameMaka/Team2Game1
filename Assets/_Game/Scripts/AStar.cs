@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class AStar : MonoBehaviour
 {
+    public static AStar Instance { get; private set; }
+
     public bool includeDiagonals;
     public float nodeDistance = 1;
     public Transform firstNode;
@@ -17,7 +19,7 @@ public class AStar : MonoBehaviour
     public List<Transform> blockers;
     //=> testParentBlocker.GetComponentsInChildren<Transform>().Where(x => x != testParentBlocker).ToList();
 
-    public PathBlocker[] pathBlockers;
+    private PathBlocker[] pathBlockers;
 
     //public Material pathMat;
     //public Material blockMat;
@@ -73,9 +75,11 @@ public class AStar : MonoBehaviour
 
     private void Start()
     {
+        Instance = this;
+        pathBlockers = FindObjectsOfType<PathBlocker>();
+
         InitializeNodes(firstNode.position, lastNode.position);
-        
-        
+
 
 
         //old test code vvv
@@ -92,31 +96,31 @@ public class AStar : MonoBehaviour
         //}
     }
 
-    private void VisualizeNodes()
-    {
-        //foreach (var n in nodes)
-        //{
-        //    var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //    cube.transform.parent = transform;
-        //    cube.transform.localScale = Vector3.one * 0.9f;
-        //    cube.transform.position = n.Key;
+    //private void VisualizeNodes()
+    //{
+    //    //foreach (var n in nodes)
+    //    //{
+    //    //    var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+    //    //    cube.transform.parent = transform;
+    //    //    cube.transform.localScale = Vector3.one * 0.9f;
+    //    //    cube.transform.position = n.Key;
 
-        //    if (!n.Value.IsWalkable)
-        //        cube.GetComponent<Renderer>().material = blockMat;
+    //    //    if (!n.Value.IsWalkable)
+    //    //        cube.GetComponent<Renderer>().material = blockMat;
             
-        //    n.Value.Obj = cube;
-        //}
-    }
+    //    //    n.Value.Obj = cube;
+    //    //}
+    //}
 
-    private void VisualizeParents()
-    {
-        foreach (var node in nodes)
-        {
-            Node n = node.Value;
-            if (n.Parent != null)
-                Debug.DrawRay((Vector3)n.Position + Vector3.back, (Vector3)(n.Parent.Position - n.Position).normalized * 0.5f + Vector3.back, Color.black, 60);
-        }
-    }
+    //private void VisualizeParents()
+    //{
+    //    foreach (var node in nodes)
+    //    {
+    //        Node n = node.Value;
+    //        if (n.Parent != null)
+    //            Debug.DrawRay((Vector3)n.Position + Vector3.back, (Vector3)(n.Parent.Position - n.Position).normalized * 0.5f + Vector3.back, Color.black, 60);
+    //    }
+    //}
 
     /// <summary>
     /// Builds a grid of nodes
@@ -134,17 +138,17 @@ public class AStar : MonoBehaviour
             for (float y = bottom; y <= top; y += nodeDistance)
             {
                 Vector2 position = new Vector2(x, y);
-                bool walkable = !blockers.Any(t => (Vector2)t.position == position);
+                bool walkable = !pathBlockers.Any(b => b.boxCollider.OverlapPoint(position));
 
-                var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                cube.transform.parent = transform;
-                cube.transform.localScale = Vector3.one * 0.9f;
-                cube.transform.position = position;
+                //var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                //cube.transform.parent = transform;
+                //cube.transform.localScale = Vector3.one * 0.9f;
+                //cube.transform.position = position;
 
                 //if (!walkable)
                 //    cube.GetComponent<Renderer>().material = blockMat;
 
-                Node n = cube.AddComponent<Node>();
+                Node n = new Node();
                 n.Position = position;
                 n.IsWalkable = walkable;
 
@@ -210,6 +214,11 @@ public class AStar : MonoBehaviour
         return null;
     }
 
+    private Vector2 Round(Vector2 position)
+    {
+        return new Vector2(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+    }
+
     /*
      * 1.   Calculate heuristic values of all nodes
      * 
@@ -235,8 +244,11 @@ public class AStar : MonoBehaviour
      *          calculate G from current
      */
 
-    private Node FindShortestPath(Vector2 start, Vector2 destination)
+    public Node FindShortestPath(Vector2 start, Vector2 destination)
     {
+        start = Round(start);
+        destination = Round(start);
+
         //Initialize
         ClearPathData();
 

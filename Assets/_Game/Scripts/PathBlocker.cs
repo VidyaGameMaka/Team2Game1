@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class PathBlocker : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public BoxCollider2D boxCollider;
 
-    // Update is called once per frame
-    void Update()
+    private void OnValidate()
     {
-        
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 }
