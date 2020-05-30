@@ -6,8 +6,9 @@ public abstract class Selectable : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        Player.Instance.Select(this);
+        OnSelect();
     }
 
+    public abstract void OnSelect();
     public abstract void OnInteract();
 }
