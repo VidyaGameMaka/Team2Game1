@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8437919913716770734}
   - component: {fileID: 8787492101991185681}
+  - component: {fileID: 2239375214053462774}
   m_Layer: 0
   m_Name: Chair
   m_TagString: Untagged
@@ -55,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5513861142394452093}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7416065146324824559}
@@ -111,6 +112,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2239375214053462774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513861142394452093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a66d09212396d4248becaea140232c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReorderOnUpdate: 0
 --- !u!1 &7416065146324824563
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +138,7 @@ GameObject:
   - component: {fileID: 7416065146324824557}
   - component: {fileID: 7416065146324824556}
   - component: {fileID: 3307576221586060393}
+  - component: {fileID: 8723497824334158459}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -249,9 +264,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d203be7582b1fb47bad8fd56df89593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
+  currentState: 0
   platePosition: {fileID: 6594703016162026567}
   zombiePosition: {fileID: 3019119121685806820}
+--- !u!114 &8723497824334158459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7416065146324824563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a66d09212396d4248becaea140232c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReorderOnUpdate: 0
 --- !u!1 &7807149417955736434
 GameObject:
   m_ObjectHideFlags: 0

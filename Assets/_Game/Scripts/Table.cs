@@ -53,10 +53,11 @@ public class Table : Selectable
 
         switch (currentState)
         {
-            case State.ReadyToOrder:
-                //TODO: take order
+            case State.ReadyToOrder:               
+                FoodBar.foodBar.RequestFood(); //Spawn food on the foodbar
                 zombie.spriteRenderer.sprite = zombie.seated;
                 currentState = State.WaitingOnFood;
+
                 break;
             case State.WaitingOnFood:
                 Food f = holding as Food;
