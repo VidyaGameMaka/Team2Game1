@@ -20,19 +20,19 @@ public class Player : MonoBehaviour
         Instance = this;
     }
 
-    //public void Update()
-    //{
-    //    if (Input.GetButtonDown("Fire1"))
-    //    {
-    //        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //        path = AStar.Instance.FindShortestPath(transform.position, worldPosition);
+    public void Update()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            path = AStar.Instance.FindShortestPath(transform.position, worldPosition);
 
-    //        if (path.Count == 0)
-    //        {
-    //            OnDestinationReached();
-    //        }
-    //    }
-    //}
+            if (path.Count == 0)
+            {
+                OnDestinationReached();
+            }
+        }
+    }
 
     private void FixedUpdate()
     {
