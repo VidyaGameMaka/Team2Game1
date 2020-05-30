@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test : MonoBehaviour
+public abstract class Selectable : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        //Input.mousePosition
-
+        Player.Instance.Select(this);
     }
+
+    public abstract void OnInteract();
 }
