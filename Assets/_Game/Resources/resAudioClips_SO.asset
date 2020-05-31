@@ -12,13 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514a88d8f05b6844da4a523844179086, type: 3}
   m_Name: resAudioClips_SO
   m_EditorClassIdentifier: 
-  ZombieHappy: {fileID: 0}
-  ZombieMad: {fileID: 0}
-  ZombieGroan: {fileID: 0}
-  Platepickup: {fileID: 0}
-  PlateinTrash: {fileID: 0}
+  Platepickup: {fileID: 8300000, guid: 158442aa82aeff14a94aa4903296159c, type: 3}
+  PlateinTrash: {fileID: 8300000, guid: 379e85022357ee94bb1877d590b3b8b5, type: 3}
   Cashkaching: {fileID: 0}
-  BrainSquish: {fileID: 0}
+  BrainSquish: {fileID: 8300000, guid: 158442aa82aeff14a94aa4903296159c, type: 3}
   ZombieSoundGroup:
   - {fileID: 8300000, guid: 27b98a8c68f991b408c5c6afff25358c, type: 3}
   - {fileID: 8300000, guid: 5ce6bb262e363834db2b5cdef8a21155, type: 3}
