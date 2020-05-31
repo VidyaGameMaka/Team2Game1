@@ -19,8 +19,11 @@ public class GameController : MonoBehaviour
     public int maxZombieSpawn;
     public int zombieSpawnDelay;
 
-    private bool restaurantOpen = true;
+    public bool restaurantOpen = false;
     private List<LinePosition> line = new List<LinePosition>();
+
+    //Clock stuff
+    public float clockSpeed = 1f;
 
     private class LinePosition
     {
@@ -29,12 +32,11 @@ public class GameController : MonoBehaviour
     }
     
     private void Start()
-    {
+    {         
         Instance = this;
         InitializeLine();
         StartCoroutine(SpawnZombies());
     }
-
     private void InitializeLine()
     {
         for (int i = 0; i < maxZombiesInLine; i++)
@@ -54,6 +56,9 @@ public class GameController : MonoBehaviour
 
     private IEnumerator SpawnZombies()
     {
+        yield return new WaitForSeconds(5f);
+        restaurantOpen = true;
+
         while (restaurantOpen)
         {
             int num = Random.Range(minZombieSpawn, maxZombieSpawn);
