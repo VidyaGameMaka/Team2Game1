@@ -7,12 +7,15 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
     
-    public float stepSize = 0.01f;
-    public Transform hand;
+    [HideInInspector]
     public Selectable holding;
+    [HideInInspector]
     public Selectable selected;
 
+    public float stepSize = 0.01f;
+    public Transform hand;
     public Animator anim;
+    public SpriteRenderer spriteRenderer;
 
     private List<Vector2> path = new List<Vector2>();
 
@@ -22,25 +25,33 @@ public class Player : MonoBehaviour
         Instance = this;
     }
 
-    public void Update()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            path = AStar.Instance.FindShortestPath(transform.position, worldPosition);
+    //TODO
+    //public void Update()
+    //{
+    //    if (Input.GetButtonDown("Fire1"))
+    //    {
+    //        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //        path = AStar.Instance.FindShortestPath(transform.position, worldPosition);
 
-            if (path.Count == 0)
-            {
-                OnDestinationReached();
-            }
-        }
-    }
+    //        if (path.Count == 0)
+    //        {
+    //            OnDestinationReached();
+    //        }
+    //    }
+    //}
 
     private void FixedUpdate()
     {
         if (path.Count > 0)
         {
+            anim.SetInteger("state", 1);
+
             Vector2 target = path[0];
+            float xDirection = (target - (Vector2)transform.position).x;
+            //spriteRenderer.flipX = xDirection < 0;
+            float xScale = xDirection < 0 ? -1 : 1;
+            transform.localScale = new Vector3(xScale, 1, 1);
+
             transform.position = Vector2.MoveTowards(transform.position, target, stepSize);
 
             if ((Vector2)transform.position == target)
@@ -52,6 +63,10 @@ public class Player : MonoBehaviour
                     OnDestinationReached();
                 }
             }
+        }
+        else
+        {
+            anim.SetInteger("state", 0);
         }
     }
     #endregion

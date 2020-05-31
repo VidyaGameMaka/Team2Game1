@@ -71,10 +71,12 @@ public class Table : Selectable
                 }
                 break;
             case State.Dirty:
-                //TODO: clean table
-                food.OnInteract();
-                food = null;
-                currentState = State.Available;
+                if (Player.Instance.holding == null)
+                {
+                    food.OnInteract();
+                    food = null;
+                    currentState = State.Available;
+                }
                 break;
             default:
                 break;

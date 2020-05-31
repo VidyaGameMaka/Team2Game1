@@ -12,7 +12,7 @@ public class Zombie : Selectable
     public override void OnSelect()
     {
         if (table == null)
-            Player.Instance.Select(this);
+            Player.Instance.Select(GameController.Instance.NextZombie);
     }
 
     public override void OnInteract()
@@ -24,5 +24,6 @@ public class Zombie : Selectable
     {
         this.table = table;
         spriteRenderer.sprite = seated;
+        GameController.Instance.RemoveFromLine(this);
     }
 }
