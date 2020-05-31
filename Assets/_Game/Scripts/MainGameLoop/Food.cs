@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Team2Game1;
 
 public class Food : Selectable
 {
@@ -9,6 +10,10 @@ public class Food : Selectable
     public SpriteRenderer spriteRenderer;
     public Sprite emptyPlate;
     public bool isEaten = false;
+
+    private void Start() {     
+        GameMaster.soundFX.PlaySound(GameMaster.audioClip_SO.BrainSquish);
+    }
 
     public override void OnSelect()
     {

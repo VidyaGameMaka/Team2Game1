@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Team2Game1;
 
 public class Table : Selectable
 {
@@ -63,6 +64,8 @@ public class Table : Selectable
                 Food f = holding as Food;
                 if (f != null && !f.isEaten)
                 {
+                    GameMaster.soundFX.PlaySound(GameMaster.audioClip_SO.PlateinTrash);
+
                     food = holding as Food;
                     Player.Instance.holding = null;
                     holding.transform.SetParent(null);
@@ -91,6 +94,9 @@ public class Table : Selectable
         yield return new WaitForSeconds(2);
         currentState = State.ReadyToOrder;
         zombie.spriteRenderer.sprite = zombie.raisedHand;
+
+        AudioClip clipchoice = GameMaster.audioClip_SO.ZombieSoundGroup[Random.Range(0, GameMaster.audioClip_SO.ZombieSoundGroup.Length)];
+        GameMaster.soundFX.PlaySound(clipchoice);
     }
 
     private IEnumerator Eat()

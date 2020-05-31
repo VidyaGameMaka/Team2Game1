@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Team2Game1;
 
 public class TrashCan : Selectable
 {
@@ -15,6 +16,7 @@ public class TrashCan : Selectable
         Food food = Player.Instance.holding as Food;
         if (food != null && food.isEaten)
         {
+            GameMaster.soundFX.PlaySound(GameMaster.audioClip_SO.PlateinTrash);
             Destroy(food.gameObject);
         }
     }
