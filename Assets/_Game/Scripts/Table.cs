@@ -76,6 +76,8 @@ public class Table : Selectable
                     food.OnInteract();
                     food = null;
                     currentState = State.Available;
+                    //Add to Score
+                    GameController.Instance.score += Random.Range(5f, 10f);
                 }
                 break;
             default:

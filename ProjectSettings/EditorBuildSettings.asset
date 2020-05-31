@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/_Game/Scenes/MainMenu.unity
     guid: c04ede70ccdee1246980932f9a435f82
   - enabled: 1
-    path: Assets/_Game/Scenes/CompletedGame.unity
-    guid: acf4b6342c26b6f45a0c9a672c6945aa
+    path: Assets/_Game/Scenes/Game.unity
+    guid: a7417bcc9babbcd41984ad67878d168a
+  - enabled: 1
+    path: Assets/_Game/Scenes/reloader.unity
+    guid: fe61442be3c2b8f4380850a4147e02a7
   m_configObjects: {}

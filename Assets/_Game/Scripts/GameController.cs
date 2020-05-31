@@ -19,18 +19,23 @@ public class GameController : MonoBehaviour
     public int maxZombieSpawn;
     public int zombieSpawnDelay;
 
+    public float score;
     public bool restaurantOpen = false;
+
     private List<LinePosition> line = new List<LinePosition>();
 
     //Clock stuff
     public float clockSpeed = 1f;
+
+    //Level Completed UR
+    public GameObject levelCompletedUI;
 
     private class LinePosition
     {
         public Vector3 position;
         public Zombie zombie;
     }
-    
+
     private void Start()
     {         
         Instance = this;
@@ -56,9 +61,9 @@ public class GameController : MonoBehaviour
 
     private IEnumerator SpawnZombies()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(5f);       
         restaurantOpen = true;
-
+        
         while (restaurantOpen)
         {
             int num = Random.Range(minZombieSpawn, maxZombieSpawn);
@@ -72,5 +77,30 @@ public class GameController : MonoBehaviour
             }
             yield return new WaitForSeconds(zombieSpawnDelay);
         }
+
+        StartCoroutine(CheckLevelCompleted());
+    }
+
+    private IEnumerator CheckLevelCompleted() {       
+        while (!restaurantOpen) {
+
+            //If level completed. Show Score Canvas.
+            if (!line.Any(x => x.zombie != null) &&
+            GameObject.FindObjectsOfType<Table>().All(x => x.currentState == Table.State.Available &&
+            Player.Instance.holding == null)) {
+                levelCompleted();
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+
+    private void levelCompleted() {
+
+        //Enable UI Prefab
+        levelCompletedUI.SetActive(true);
+
+
     }
 }
