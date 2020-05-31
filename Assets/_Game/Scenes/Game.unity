@@ -160,7 +160,7 @@ MonoBehaviour:
   zombieSpawnDelay: 10
   score: 0
   restaurantOpen: 0
-  clockSpeed: 5
+  clockSpeed: 1
   levelCompletedUI: {fileID: 1259816441}
 --- !u!4 &4869338
 Transform:
