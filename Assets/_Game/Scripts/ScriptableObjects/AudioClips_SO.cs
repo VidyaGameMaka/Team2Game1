@@ -14,5 +14,7 @@ namespace Team2Game1 {
         public AudioClip Cashkaching;
         public AudioClip BrainSquish;
 
+        public AudioClip[] ZombieSoundGroup;
+
     }
 }
