@@ -8,6 +8,8 @@ public class SortByY : MonoBehaviour {
 
     public bool ReorderOnUpdate = false;
 
+    public int adjustment = 0;
+
     public void Start() {
         sr = GetComponent<SpriteRenderer>();
         DoReorder();
@@ -20,6 +22,7 @@ public class SortByY : MonoBehaviour {
 
     private void DoReorder() {
         sr.sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
+        sr.sortingOrder += adjustment;
     }
 
 

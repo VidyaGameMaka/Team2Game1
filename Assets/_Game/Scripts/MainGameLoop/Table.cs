@@ -56,7 +56,7 @@ public class Table : Selectable
         {
             case State.ReadyToOrder:               
                 FoodBar.foodBar.RequestFood(); //Spawn food on the foodbar
-                zombie.spriteRenderer.sprite = zombie.seated;
+                //zombie.spriteRenderer.sprite = zombie.seated;               
                 currentState = State.WaitingOnFood;
 
                 break;
@@ -95,7 +95,8 @@ public class Table : Selectable
         currentState = State.Ordering;
         yield return new WaitForSeconds(2);
         currentState = State.ReadyToOrder;
-        zombie.spriteRenderer.sprite = zombie.raisedHand;
+        //zombie.spriteRenderer.sprite = zombie.raisedHand;
+        zombie.anim.SetInteger("state", 2); // Ready to order animation
 
         AudioClip clipchoice = GameMaster.audioClip_SO.ZombieSoundGroup[Random.Range(0, GameMaster.audioClip_SO.ZombieSoundGroup.Length)];
         GameMaster.soundFX.PlaySound(clipchoice);
@@ -103,6 +104,8 @@ public class Table : Selectable
 
     private IEnumerator Eat()
     {
+        zombie.anim.SetInteger("state", 1); // Table Idle
+
         currentState = State.Eating;
         yield return new WaitForSeconds(2);
         currentState = State.Dirty;

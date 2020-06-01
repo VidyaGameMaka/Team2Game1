@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7761988313557252951}
   - component: {fileID: 4550224247775435615}
   - component: {fileID: 721882491}
+  - component: {fileID: 8235765730771708975}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8872993893458974366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.29, y: -1.65, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 2081277419
   m_SortingLayer: 3
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 8fc71fe620e8162448716497925b4727, type: 3}
+  m_Sprite: {fileID: 149451196274769139, guid: 7aef7fbea1a0a3043876d25efec153ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,8 +99,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   table: {fileID: 0}
   spriteRenderer: {fileID: 595727797248648502}
+  anim: {fileID: 8235765730771708975}
   seated: {fileID: 21300000, guid: 266d3b21d152a784eb92d80d2ba95423, type: 3}
   raisedHand: {fileID: 21300000, guid: 5189d1baeb3ac9947a15af40ea1c3f82, type: 3}
+  box: {fileID: 4550224247775435615}
 --- !u!61 &4550224247775435615
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -113,10 +116,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.046238184, y: -0.08406925}
+  m_Offset: {x: -0.046238184, y: 1.0053965}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 2, y: 2}
     newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
@@ -124,7 +127,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0668321, y: 1.5964689}
+  m_Size: {x: 1.0668321, y: 2.0083406}
   m_EdgeRadius: 0
 --- !u!114 &721882491
 MonoBehaviour:
@@ -138,4 +141,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a66d09212396d4248becaea140232c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReorderOnUpdate: 0
+  ReorderOnUpdate: 1
+  adjustment: 0
+--- !u!95 &8235765730771708975
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8872993893458974366}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c3f3f28f8c20b7e488cb3af46789e04e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
