@@ -66,10 +66,12 @@ public class Table : Selectable
                 {
                     GameMaster.soundFX.PlaySound(GameMaster.audioClip_SO.PlateinTrash);
 
-                    food = holding as Food;
                     Player.Instance.holding = null;
-                    holding.transform.SetParent(null);
-                    holding.transform.position = platePosition.position;
+                    f.transform.SetParent(null);
+                    f.transform.position = platePosition.position;
+                    f.transform.rotation = Quaternion.identity;
+
+                    food = f;
                     StartCoroutine(Eat());
                 }
                 break;
