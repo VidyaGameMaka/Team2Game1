@@ -7,8 +7,10 @@ public class Zombie : Selectable
 {
     public Table table;
     public SpriteRenderer spriteRenderer;
+    public Animator anim;
     public Sprite seated;
     public Sprite raisedHand;
+    public BoxCollider2D box;
 
     public override void OnSelect() {
         if (table == null) {
@@ -26,7 +28,10 @@ public class Zombie : Selectable
     public void Seat(Table table)
     {
         this.table = table;
-        spriteRenderer.sprite = seated;
+        //spriteRenderer.sprite = seated;
+        box.enabled = false; //disable zombie box collider since we don't need to click it anymore
+        spriteRenderer.flipX = true;
+        anim.SetInteger("state", 1); //Seated animation on 1
         GameController.Instance.RemoveFromLine(this);
     }
 }
