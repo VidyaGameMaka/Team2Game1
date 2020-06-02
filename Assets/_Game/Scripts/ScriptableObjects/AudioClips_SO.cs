@@ -13,5 +13,8 @@ namespace Team2Game1 {
 
         public AudioClip[] ZombieSoundGroup;
 
+        public AudioClip MainMenuMusic;
+        public AudioClip GameMusic;
+
     }
 }
