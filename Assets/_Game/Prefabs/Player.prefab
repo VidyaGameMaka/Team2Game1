@@ -77,13 +77,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e9c55a84fb4d14aa7b5e4d6e33deac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holding: {fileID: 0}
-  selected: {fileID: 0}
-  selectionQueue: []
   stepSize: 0.2
   hand: {fileID: 8210001093338369653}
   anim: {fileID: 145425633}
   spriteRenderer: {fileID: 2630679137722100523}
+  holding: []
+  selectionQueue: []
+  isZombieSelected: 0
 --- !u!212 &2630679137722100523
 SpriteRenderer:
   m_ObjectHideFlags: 0
