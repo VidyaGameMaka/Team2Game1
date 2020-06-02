@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 2630679137722100523}
   - component: {fileID: 145425636}
   - component: {fileID: 145425633}
-  - component: {fileID: 2302924652003870025}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -80,7 +79,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holding: {fileID: 0}
   selected: {fileID: 0}
-  stepSize: 0.1
+  selectionQueue: []
+  stepSize: 0.2
   hand: {fileID: 8210001093338369653}
   anim: {fileID: 145425633}
   spriteRenderer: {fileID: 2630679137722100523}
@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ReorderOnUpdate: 1
+  adjustment: 0
 --- !u!95 &145425633
 Animator:
   serializedVersion: 3
@@ -167,19 +168,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2302924652003870025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2862102686633902266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a66d09212396d4248becaea140232c53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ReorderOnUpdate: 1
 --- !u!1 &8092728237638327383
 GameObject:
   m_ObjectHideFlags: 0

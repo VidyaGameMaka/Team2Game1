@@ -25,25 +25,24 @@ public class Table : Selectable
 
     public override void OnSelect()
     {
-        var selected = Player.Instance.selected;
-
         switch (currentState)
         {
             case State.Available:
-                if (selected is Zombie)
+                if (Player.Instance.isZombieSelected)
                 {
-                    selected.transform.position = zombiePosition.position;
-                    Player.Instance.selected = null;
-                    zombie = selected as Zombie;
+                    zombie = GameController.Instance.NextZombie;
                     zombie.Seat(this);
                     StartCoroutine(OrderFood());
                 }
+                Player.Instance.SelectNext();
                 break;
             case State.ReadyToOrder:
             case State.WaitingOnFood:
             case State.Dirty:
-                Player.Instance.Select(this);
-                Player.Instance.MoveTo(transform.position);
+                Player.Instance.MoveTo(transform.position, OnInteract);
+                break;
+            default:
+                Player.Instance.SelectNext();
                 break;
         }
     }
@@ -55,8 +54,7 @@ public class Table : Selectable
         switch (currentState)
         {
             case State.ReadyToOrder:               
-                FoodBar.foodBar.RequestFood(); //Spawn food on the foodbar
-                //zombie.spriteRenderer.sprite = zombie.seated;               
+                FoodBar.foodBar.RequestFood();
                 currentState = State.WaitingOnFood;
 
                 break;
@@ -95,7 +93,6 @@ public class Table : Selectable
         currentState = State.Ordering;
         yield return new WaitForSeconds(2);
         currentState = State.ReadyToOrder;
-        //zombie.spriteRenderer.sprite = zombie.raisedHand;
         zombie.anim.SetInteger("state", 2); // Ready to order animation
 
         AudioClip clipchoice = GameMaster.audioClip_SO.ZombieSoundGroup[Random.Range(0, GameMaster.audioClip_SO.ZombieSoundGroup.Length)];

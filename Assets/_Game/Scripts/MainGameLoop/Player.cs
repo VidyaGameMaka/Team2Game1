@@ -1,22 +1,28 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
-    
+
     [HideInInspector]
     public Selectable holding;
-    [HideInInspector]
-    public Selectable selected;
+    //[HideInInspector]
+    //public Selectable selected;
+
+    public List<Selectable> selectionQueue;
+    private Action onDestinationReached;
+    public bool isZombieSelected;
 
     public float stepSize = 0.01f;
     public Transform hand;
     public Animator anim;
     public SpriteRenderer spriteRenderer;
 
+    private bool followPath;
     private List<Vector2> path = new List<Vector2>();
 
     #region MonoBehavior
@@ -24,31 +30,21 @@ public class Player : MonoBehaviour
     {
         Instance = this;
     }
-
-    //TODO
-    //public void Update()
-    //{
-    //    if (Input.GetButtonDown("Fire1"))
-    //    {
-    //        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //        path = AStar.Instance.FindShortestPath(transform.position, worldPosition);
-
-    //        if (path.Count == 0)
-    //        {
-    //            OnDestinationReached();
-    //        }
-    //    }
-    //}
-
+    
     private void FixedUpdate()
     {
-        if (path.Count > 0)
+        if (followPath)
         {
+            if (path.Count == 0)
+            {
+                OnDestinationReached();
+                return;
+            }
+
             anim.SetInteger("state", 1);
 
             Vector2 target = path[0];
             float xDirection = (target - (Vector2)transform.position).x;
-            //spriteRenderer.flipX = xDirection < 0;
             float xScale = xDirection < 0 ? -1 : 1;
             transform.localScale = new Vector3(xScale, 1, 1);
 
@@ -57,11 +53,6 @@ public class Player : MonoBehaviour
             if ((Vector2)transform.position == target)
             {
                 path.RemoveAt(0);
-
-                if (path.Count == 0)
-                {
-                    OnDestinationReached();
-                }
             }
         }
         else
@@ -71,27 +62,42 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    public void MoveTo(Vector2 position)
+    public void OnClick(Selectable selected)
     {
-        path = AStar.Instance.FindShortestPath(transform.position, position);
+        selectionQueue.Add(selected);
 
-        if (path.Count == 0)
-        {
-            OnDestinationReached();
-        }
+        if (selectionQueue.Count == 1)
+            selected.OnSelect();
     }
 
-    public void Select(Selectable selected)
+    public void MoveTo(Vector2 position, Action onDestinationReached)
     {
-        this.selected = selected;
+        this.onDestinationReached = onDestinationReached;
+        followPath = true;
+        path = AStar.Instance.FindShortestPath(transform.position, position);
     }
 
     private void OnDestinationReached()
     {
-        if (selected != null)
+        followPath = false;
+        onDestinationReached();
+        SelectNext();
+    }
+    
+    public void SelectNext()
+    {
+        RemoveCurrentSelection();
+        if (selectionQueue.Any())
         {
-            selected.OnInteract();
-            selected = null;
+            selectionQueue.First().OnSelect();
+        }
+    }
+
+    private void RemoveCurrentSelection()
+    {
+        if (selectionQueue.Any())
+        {
+            selectionQueue.RemoveAt(0);
         }
     }
 

@@ -7,8 +7,7 @@ public class TrashCan : Selectable
 {
     public override void OnSelect()
     {
-        Player.Instance.Select(this);
-        Player.Instance.MoveTo(transform.position);
+        Player.Instance.MoveTo(transform.position, OnInteract);
     }
 
     public override void OnInteract()
