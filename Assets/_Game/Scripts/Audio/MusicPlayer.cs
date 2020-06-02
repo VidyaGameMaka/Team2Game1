@@ -11,16 +11,24 @@ namespace Team2Game1 {
             DontDestroyOnLoad(this);
         }
 
-        private void Start() {
-            GameMaster.music.PlayMusic(GameMaster.audioClip_SO.MainMenuMusic);
-        }
-
-        private void OnLevelWasLoaded(int level) {
+        // called second
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
             if (SceneManager.GetActiveScene().name == "MainMenu") {
                 GameMaster.music.PlayMusic(GameMaster.audioClip_SO.MainMenuMusic);
             } else {
                 GameMaster.music.PlayMusic(GameMaster.audioClip_SO.GameMusic);
             }
+        }
+
+        // called third
+        void Start() {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            GameMaster.music.PlayMusic(GameMaster.audioClip_SO.MainMenuMusic);
+        }
+
+        // called when the game is terminated
+        void OnDisable() {           
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
     }
