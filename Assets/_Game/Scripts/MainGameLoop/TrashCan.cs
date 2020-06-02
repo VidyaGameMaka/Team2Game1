@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Team2Game1;
+using System.Linq;
 
 public class TrashCan : Selectable
 {
@@ -12,11 +13,17 @@ public class TrashCan : Selectable
 
     public override void OnInteract()
     {
-        Food food = Player.Instance.holding as Food;
-        if (food != null && food.isEaten)
+        var holding = Player.Instance.holding;
+        if (holding.Any() && holding.All(x => x.isEaten))
         {
             GameMaster.soundFX.PlaySound(GameMaster.audioClip_SO.PlateinTrash);
-            Destroy(food.gameObject);
+            while (holding.Any())
+            {
+                var food = holding.First();
+                Destroy(food.gameObject);
+                holding.RemoveAt(0);
+            }
         }
+        Player.Instance.SelectNext();
     }
 }

@@ -22,8 +22,7 @@ public class Food : Selectable
 
     public override void OnInteract()
     {
-        bool success = Player.Instance.TryPickUp(this);
-        if (success)
+        if (Player.Instance.TryPickUp(this))
         {
             boxCollider.enabled = false;
         }

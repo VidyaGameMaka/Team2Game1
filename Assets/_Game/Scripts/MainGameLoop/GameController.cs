@@ -86,8 +86,8 @@ public class GameController : MonoBehaviour
 
             //If level completed. Show Score Canvas.
             if (!line.Any(x => x.zombie != null) &&
-            GameObject.FindObjectsOfType<Table>().All(x => x.currentState == Table.State.Available &&
-            Player.Instance.holding == null)) {
+            FindObjectsOfType<Table>().All(x => x.currentState == Table.State.Available &&
+            Player.Instance.holding.Count == 0)) {
                 levelCompleted();
             }
 

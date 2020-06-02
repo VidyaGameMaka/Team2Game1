@@ -8,20 +8,19 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
-    [HideInInspector]
-    public Selectable holding;
-    //[HideInInspector]
-    //public Selectable selected;
-
-    public List<Selectable> selectionQueue;
-    private Action onDestinationReached;
-    public bool isZombieSelected;
-
     public float stepSize = 0.01f;
     public Transform hand;
     public Animator anim;
     public SpriteRenderer spriteRenderer;
 
+    [HideInInspector]
+    public List<Food> holding;
+    [HideInInspector]
+    public List<Selectable> selectionQueue;
+    [HideInInspector]
+    public bool isZombieSelected;
+
+    private Action onDestinationReached;
     private bool followPath;
     private List<Vector2> path = new List<Vector2>();
 
@@ -101,13 +100,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    public bool TryPickUp(Selectable obj)
+    public bool TryPickUp(Food obj)
     {
-        if (holding == null)
+        if (holding.Count == 0 || (obj.isEaten && holding.All(x => x.isEaten)))
         {
             obj.transform.SetParent(hand);
             obj.transform.localPosition = Vector3.zero;
-            holding = obj;
+            holding.Add(obj);
             return true;
         }
 

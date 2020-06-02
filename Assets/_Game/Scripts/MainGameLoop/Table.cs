@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Team2Game1;
+using System.Linq;
 
 public class Table : Selectable
 {
@@ -49,8 +50,6 @@ public class Table : Selectable
 
     public override void OnInteract()
     {
-        var holding = Player.Instance.holding;
-
         switch (currentState)
         {
             case State.ReadyToOrder:               
@@ -59,12 +58,12 @@ public class Table : Selectable
 
                 break;
             case State.WaitingOnFood:
-                Food f = holding as Food;
+                Food f = Player.Instance.holding.FirstOrDefault();
                 if (f != null && !f.isEaten)
                 {
                     GameMaster.soundFX.PlaySound(GameMaster.audioClip_SO.PlateinTrash);
 
-                    Player.Instance.holding = null;
+                    Player.Instance.holding.RemoveAt(0);
                     f.transform.SetParent(null);
                     f.transform.position = platePosition.position;
                     f.transform.rotation = Quaternion.identity;
@@ -74,7 +73,7 @@ public class Table : Selectable
                 }
                 break;
             case State.Dirty:
-                if (Player.Instance.holding == null)
+                if (Player.Instance.holding.All(x => x.isEaten))
                 {
                     food.OnInteract();
                     food = null;

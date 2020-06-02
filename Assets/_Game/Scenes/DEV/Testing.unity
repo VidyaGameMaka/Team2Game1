@@ -155,8 +155,8 @@ MonoBehaviour:
   prefabZombie: {fileID: 7761988313557252951, guid: a6862c56733c2714f9afd107921d5b09,
     type: 3}
   maxZombiesInLine: 5
-  minZombieSpawn: 1
-  maxZombieSpawn: 3
+  minZombieSpawn: 5
+  maxZombieSpawn: 5
   zombieSpawnDelay: 10
   score: 0
   restaurantOpen: 0
@@ -3126,6 +3126,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652304867015762221, guid: aad1fc6da2e3bf74c808c4adf28c597d,
+        type: 3}
+      propertyPath: stepSize
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aad1fc6da2e3bf74c808c4adf28c597d, type: 3}
