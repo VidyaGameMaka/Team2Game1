@@ -8,7 +8,6 @@ namespace Team2Game1 {
 
         public AudioClip Platepickup;
         public AudioClip PlateinTrash;
-        public AudioClip Cashkaching;
         public AudioClip BrainSquish;
 
         public AudioClip[] ZombieSoundGroup;
@@ -16,5 +15,6 @@ namespace Team2Game1 {
         public AudioClip MainMenuMusic;
         public AudioClip GameMusic;
 
+        public AudioClip UI_Menu_Button_Confirm;
     }
 }

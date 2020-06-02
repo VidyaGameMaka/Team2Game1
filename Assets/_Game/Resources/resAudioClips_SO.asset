@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Platepickup: {fileID: 8300000, guid: 158442aa82aeff14a94aa4903296159c, type: 3}
   PlateinTrash: {fileID: 8300000, guid: 379e85022357ee94bb1877d590b3b8b5, type: 3}
-  Cashkaching: {fileID: 0}
   BrainSquish: {fileID: 8300000, guid: 158442aa82aeff14a94aa4903296159c, type: 3}
   ZombieSoundGroup:
   - {fileID: 8300000, guid: 27b98a8c68f991b408c5c6afff25358c, type: 3}
@@ -28,3 +27,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ff8240148ee026c4babb53949381e1cd, type: 3}
   MainMenuMusic: {fileID: 8300000, guid: 7a9be28a4dcb9b64e93fe557aef4701f, type: 3}
   GameMusic: {fileID: 8300000, guid: d05c61a89e3cc0849a29e614529dde0f, type: 3}
+  UI_Menu_Button_Confirm: {fileID: 8300000, guid: 7f4f190e4f5d15a4c869dfe4e85e63cb,
+    type: 3}

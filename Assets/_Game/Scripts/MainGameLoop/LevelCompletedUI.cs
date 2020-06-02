@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Team2Game1;
 
 public class LevelCompletedUI : MonoBehaviour {
 
@@ -18,6 +18,7 @@ public class LevelCompletedUI : MonoBehaviour {
 
     public void BTN_MainMenu() {
         SceneManager.LoadScene("MainMenu");
+        GameMaster.soundFX.PlaySound(GameMaster.audioClip_SO.UI_Menu_Button_Confirm);
     }
 
     public void BTN_Quit() {
@@ -26,6 +27,7 @@ public class LevelCompletedUI : MonoBehaviour {
 
     public void BTN_PlayAgain() {
         SceneManager.LoadScene("reloader");
+        GameMaster.soundFX.PlaySound(GameMaster.audioClip_SO.UI_Menu_Button_Confirm);
     }
 
 
