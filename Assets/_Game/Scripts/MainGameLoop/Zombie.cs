@@ -31,6 +31,7 @@ public class Zombie : Selectable
         this.table = table;
         box.enabled = false; //disable zombie box collider since we don't need to click it anymore
         transform.position = table.zombiePosition.position;
+        Player.Instance.isZombieSelected = false; //deselect zombie after seating
         spriteRenderer.flipX = true;
         anim.SetInteger("state", 1); //Seated animation on 1
         GameController.Instance.RemoveFromLine(this);
