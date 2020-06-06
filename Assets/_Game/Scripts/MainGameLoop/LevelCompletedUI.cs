@@ -11,16 +11,21 @@ public class LevelCompletedUI : MonoBehaviour {
 
 
     private List<string> messages = new List<string> {
-        "Brilliant job!",
-        "Outstanding work!",
-        "This is truly above and beyond.",
-        "We are thrilled to have you on our team and this is exactly why we need you.",
-        "This is superb! I had no idea a document could look this good.",
-        "To be honest, when we started the project I wasn’t sure we could pull this off but you certainly did it and did it well.",
-        "We are so fortunate to have an innovator like you on our team.",
-        "This is so great I think others could benefit from learning about it. Can I share your work at our team meeting/with my peers/with my boss, etc.?",
-        "You set a high bar with this one.",
-        "This showcases you are a role model and leader in our organization."
+        "Looks like the clients were thrilled to death! Good job out there!",
+        "You're the life and soul of this restaurant! Although, it's not like that there's that much competition...",
+        "I didn't know we could sell that many brains in one shift! Good work!",
+        "To be honest, I didn't think you'd make it through your shift! Looks like you did well!",
+        "I knew opening a restaurant next to the graveyard would be a hit! Thanks for helping me making it a success!",
+        "This is so great! Just remember to not let clients bite the hand that feeds them! It would... complicate things.",
+        "I wonder what the clients eat oustide of buisness hours... Anyways! Here's to another successful shift!",
+        "Here's your cut for today! Someday we'll be making enough to fix the wall back here in the kitchen!",
+        "Did you know? When I called your references before hiring you... all of them groaned! I knew you'd be a perfect fit!",
+        "How do I get the ingredient for our signature dish? Sorry! Trade secret! We'd go out of buisness if the compitetion knew!",
+        "Great work! Looks like you've really got the brains for this kind of work!",
+        "Nice work today! But should you really be spending all that money on bubblegum?",
+        "Have you noticed clients always order the same thing? Kind of weird considering our vast menu selection! Anyways, good work today!",
+        "Nice one today! I put a lot of effort in the presentation of our signature dish, so thanks for always just picking up one plate at a time!",
+        "Keep it going and you'll probably outlive the last waitress! I mean... you'll probably be employee of the month!"
     };
 
     private void OnEnable() {
