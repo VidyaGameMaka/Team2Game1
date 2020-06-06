@@ -70,6 +70,9 @@ public class Table : Selectable
 
                     food = f;
                     StartCoroutine(Eat());
+                    zombie.anim.SetInteger("state", 3); //eating
+
+                    CustomerFeedback.Instance.TriggerFeedback();
                 }
                 break;
             case State.Dirty:
