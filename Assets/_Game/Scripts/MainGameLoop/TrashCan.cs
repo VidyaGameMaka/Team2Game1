@@ -16,14 +16,15 @@ public class TrashCan : Selectable
         var holding = Player.Instance.holding;
         if (holding.Any() && holding.All(x => x.isEaten))
         {
-            GameMaster.soundFX.PlaySound(GameMaster.audioClip_SO.PlateinTrash);
             while (holding.Any())
             {
+                GameMaster.soundFX.PlaySound(GameMaster.audioClip_SO.PlateinTrash);
                 var food = holding.First();
                 Destroy(food.gameObject);
                 holding.RemoveAt(0);
             }
         }
+
         Player.Instance.SelectNext();
     }
 }

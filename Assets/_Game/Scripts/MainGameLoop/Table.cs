@@ -70,6 +70,8 @@ public class Table : Selectable
 
                     food = f;
                     StartCoroutine(Eat());
+
+                    CustomerFeedback.Instance.TriggerFeedback();
                 }
                 break;
             case State.Dirty:

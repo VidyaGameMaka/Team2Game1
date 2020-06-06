@@ -69,6 +69,15 @@ public class AStar : MonoBehaviour
         blockers = FindObjectsOfType<PathBlocker>();
 
         InitializeNodes(firstNode.position, lastNode.position);
+
+        //foreach (var n in nodes)
+        //{
+        //    if (n.Value.IsWalkable)
+        //    {
+        //        var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        //        obj.transform.position = n.Key;
+        //    }
+        //}
     }
 
     /// <summary>
